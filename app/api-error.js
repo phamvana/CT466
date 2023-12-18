@@ -1,5 +1,5 @@
 class ApiError extends Error {
-    constructor (statusCode, message){
+    constructor(statusCode, message) {
         super();
         this.statusCode = statusCode;
         this.message = message;
@@ -7,5 +7,5 @@ class ApiError extends Error {
 }
 
 
-// eslint-disable-next-line no-undef
+// ApiError --> khi xuất hiện lỗi.
 module.exports = ApiError;
