@@ -1,0 +1,26 @@
+{
+  "name": "ct466",
+  "version": "1.0.0",
+  "description": "Niên luận chuyên ngành CNTT",
+  "main": "main.js",
+  "scripts": {
+    "test": "phamvana"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phamvana/CT466.git"
+  },
+  "keywords": [
+    "ct466"
+  ],
+  "author": "PhamVanA_cm21v7x306",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/phamvana/CT466/issues"
+  },
+  "homepage": "https://github.com/phamvana/CT466#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
