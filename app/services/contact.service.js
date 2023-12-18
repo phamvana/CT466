@@ -3,7 +3,7 @@ const MongoDB = require("../utils/mongodb.util");
 const ApiError = require("../api-error");
 class ContactService {
     constructor(client) {
-        const database = client.db("contactbook");
+        const database = client.db("CT466");
         this.Contact = database.collection("contacts");
     }
 
