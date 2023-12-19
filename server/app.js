@@ -6,6 +6,7 @@ const app = express();
 
 const contactsRouter = require("./app/routes/contact.route");
 const productsRouter = require("./app/routes/product.route");
+const servicesRouter = require("./app/routes/service.route");
 const ApiError = require("./app/api-error");
 
 app.use(cors());
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/services", servicesRouter);
 //hanle 404 response
 app.use((req, res, next) => {
     return next(new ApiError(404, "Mã nguồn không tìm thấy"));

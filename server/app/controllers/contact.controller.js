@@ -19,7 +19,7 @@ exports.create = async (req, res, next) => {
 
 };
 
-// Trả về tất cả contact của một user từ database
+// Trả về tất cả contact của một từ database
 exports.findAll = async (req, res, next) => {
     let documents = [];
 
@@ -86,7 +86,7 @@ exports.delete = async (req, res, next) => {
         if (!document) {
             return next(new ApiError(404, "Không tìm thấy!!"))
         }
-        return res.send({ message: "Contact đã xóa thành công!!" });
+        return res.send({ message: "Sản phẩm đã xóa thành công!!" });
     } catch (error) {
         return next(
             new ApiError(500, `Không thể xóa contact với id = ${req.params.id}`)
@@ -95,7 +95,7 @@ exports.delete = async (req, res, next) => {
 
 };
 
-// Xoas toàn bộ dữ liệu
+// Xoá toàn bộ dữ liệu
 exports.deleteAll = async (_req, res, next) => {
     try {
         const contactService = new ContactService(MongoDB.client);
