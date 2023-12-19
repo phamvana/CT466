@@ -1,7 +1,7 @@
 {
   "name": "contactbook-backend",
   "version": "1.0.0",
-  "description": "lab1",
+  "description": "CT466",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",

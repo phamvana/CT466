@@ -61,7 +61,6 @@ class ContactService {
             { returnDocument: "after" }
         );
         return result;
-        //return result; 
     }
 
     //delete
