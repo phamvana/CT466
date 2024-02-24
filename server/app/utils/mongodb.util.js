@@ -1,4 +1,4 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient } = require("mongodb");
 //Tạo lớp MongoDB --> kết nối dữ liệu từ MongoDB
 class MongoDB {
     static connect = async (uri) => {

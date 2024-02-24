@@ -1,15 +1,14 @@
-const ContactService = require("../services/contact.service");
+const ProductService = require("../services/product.service");
 const MongoDB = require("../utils/mongodb.util");
 const ApiError = require("../api-error");
-
-// Tạo và Lưu một Contact mới - Phạm Văn Á
+// Tạo mới
 exports.create = async (req, res, next) => {
     if (!req.body?.name) {
         return next(new ApiError(400, "Tên không để trống!"));
     }
     try {
-        const contactService = new ContactService(MongoDB.client);
-        const document = contactService.create(req.body);
+        const productService = new ProductService(MongoDB.client);
+        const document = productService.create(req.body);
         return res.send(document);
     } catch (error) {
         return next(
@@ -18,18 +17,17 @@ exports.create = async (req, res, next) => {
     }
 
 };
-
-// Trả về tất cả contact của một từ database
+// Tìm tất cả
 exports.findAll = async (req, res, next) => {
     let documents = [];
 
     try {
-        const contactService = new ContactService(MongoDB.client);
+        const productService = new ProductService(MongoDB.client);
         const { name } = req.query;
         if (name) {
-            documents = await contactService.findByName(name);
+            documents = await productService.findByName(name);
         } else {
-            documents = await contactService.find({});
+            documents = await productService.find({});
         }
     } catch (error) {
         return next(
@@ -39,12 +37,11 @@ exports.findAll = async (req, res, next) => {
 
     return res.send(documents);
 };
-
-// findOne
+// Tìm một
 exports.findOne = async (req, res, next) => {
     try {
-        const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.findById(req.params.id);
+        const productService = new ProductService(MongoDB.client);
+        const document = await productService.findById(req.params.id);
         if (!document) {
             return next(new ApiError(404, "Không tìm thấy"));
         }
@@ -58,14 +55,15 @@ exports.findOne = async (req, res, next) => {
     }
 };
 
-// Update - Phạm Văn Á thực hiện
+// Cập nhật sản phẩm
 exports.update = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(new ApiError(400, "Dữ liệu cập nhật không được rỗng!!!"));
     }
     try {
-        const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.update(req.params.id, req.body);
+        const productService = new ProductService(MongoDB.client);
+        const document = await productService.update(req.params.id, req.body);
+        console.log(productService);
         if (!document) {
             return next(new ApiError(404, "Không tìm thấy thông tin!!"));
         }
@@ -78,28 +76,11 @@ exports.update = async (req, res, next) => {
 
 };
 
-// Xóa dữ liệu theo id
-exports.delete = async (req, res, next) => {
-    try {
-        const contactService = new ContactService(MongoDB.client);
-        const document = await contactService.delete(req.params.id);
-        if (!document) {
-            return next(new ApiError(404, "Không tìm thấy!!"))
-        }
-        return res.send({ message: "Sản phẩm đã xóa thành công!!" });
-    } catch (error) {
-        return next(
-            new ApiError(500, `Không thể xóa contact với id = ${req.params.id}`)
-        );
-    }
-
-};
-
-// Xoá toàn bộ dữ liệu
+// Xoá toàn bộ sản phẩm
 exports.deleteAll = async (_req, res, next) => {
     try {
-        const contactService = new ContactService(MongoDB.client);
-        const deletedCount = await contactService.deleteAll(); // gọi hàm từ contact.server.js
+        const productService = new ProductService(MongoDB.client);
+        const deletedCount = await productService.deleteAll(); // gọi hàm từ contact.server.js
         return res.send({
             message: `${deletedCount} đã được xóa thành công!!`,
         });
@@ -108,17 +89,31 @@ exports.deleteAll = async (_req, res, next) => {
             new ApiError(500, "Có lỗi trong khi xóa tất cả dữ liệu!!")
         );
     }
-    //res.send({ message: "deleteAll handker" });
 };
+// Xoá 1 sản phẩm
+exports.delete = async (req, res, next) => {
+    try {
+        const productService = new ProductService(MongoDB.client);
+        const document = await productService.delete(req.params.id);
+        if (!document) {
+            return next(new ApiError(404, "Không tìm thấy!!"))
+        }
+        return res.send({ message: "Sản phẩm đã xóa thành công!!" });
+    } catch (error) {
+        return next(
+            new ApiError(500, `Không thể xóa sản phẩm với id = ${req.params.id}`)
+        );
+    }
 
-// find All favorite
+};
+// Yêu thích
 exports.findAllFavorite = async (req, res, next) => {
     try {
-        const contactService = new ContactService(MongoDB.client);
-        const documents = await contactService.findAllFavorite();
+        const productService = new ProductService(MongoDB.client);
+        const documents = await productService.findAllFavorite();
         return res.send(documents);
     } catch (error) {
-        return next(new ApiError(500, "Có lỗi trong khi gửi faorite contacts!!"));
+        return next(new ApiError(500, "Có lỗi trong khi gửi faorite sản phẩm!!"));
     }
 
 };
